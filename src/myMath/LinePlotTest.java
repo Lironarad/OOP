@@ -42,14 +42,14 @@ public class LinePlotTest extends JFrame {
 		//data of critical points
 		DataTable data3 = new DataTable(Double.class, Double.class);
 
-		for (double x = -2.0; x <= 6; x+=0.001) {
+		for (double x = -2.0; x <= 6; x+=0.01) {
 			double y = p.f(x);
 			data2.add(x,y);
 		}
 		
-		double x0 = p.root(-1, 0, 0.00001);
-		double x1 = p.root(4,5, 0.00001);
-		for (double x = x0; x <= x1; x+=0.001) {
+		double x0 = p.root(-1, 0, 0.01);
+		double x1 = p.root(4,5, 0.01);
+		for (double x = x0; x <= x1; x+=0.01) {
 			double y = p.f(x);
 			data1.add(x,y);
 		}
