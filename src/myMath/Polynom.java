@@ -181,7 +181,7 @@ public class Polynom implements Polynom_able{
 						if(temp.charAt(k-1) == '[')
 							a = 1;
 						else
-						a = Double.parseDouble(temp.substring(start, end));
+							a = Double.parseDouble(temp.substring(start, end));
 						if(temp.charAt(end+2)!=']' && temp.charAt(temp.length()-1)==']')
 						{
 							b = Integer.parseInt(temp.substring(end+2, temp.length()-1));
@@ -531,9 +531,17 @@ public class Polynom implements Polynom_able{
 	public double area(double x0, double x1, double eps) {
 		double area = 0;
 		for (double i = x0; i < x1; i+=eps) {
-			area = area + eps * f(i);
+			if(f(i) > 0)
+				area = area + eps * f(i);
 		}
-
+		return area;
+	}
+	public double areaUnderX(double x0, double x1, double eps) {
+		double area = 0;
+		for (double i = x0; i < x1; i+=eps) {
+			if(f(i) < 0)
+				area = area + eps * f(i);
+		}
 		return area;
 	}
 
@@ -547,23 +555,34 @@ public class Polynom implements Polynom_able{
 	}
 
 
-	public ArrayList<Double> CuttingPoints(double a, double b) {
+	public ArrayList<Double> rootPoints(double a, double b, double eps) {
 
-		ArrayList<Double> criticalPoints = new ArrayList<>();
+		ArrayList<Double> roots = new ArrayList<>();
 		double x0 = a;
-		double x1 = a+1;
+		double x1 = a+eps;
 		double x;
-		while(x1<=b+1) {
-			if(this.f(x0) * this.f(x1)<0) {
+		while(x1<=b+2*eps) {
+			if(this.f(x0) * this.f(x1)<=0) {
 				x = root(x0, x1, 0.0001);
-				criticalPoints.add(x);
+				roots.add(x);
 			}
-			x0 += 0.5;
-			if(x0>=x1)
-				x1+=0.5;
+			x0 = x1;
+			x1 = x1 + eps;
 		}
+		return roots;
+	}
+	public DataTable criticalPoints(double a, double b, double eps){
 
-		return criticalPoints;
+		DataTable points = new DataTable(Double.class, Double.class);
+		Polynom_able p = this.derivative();
+
+		ArrayList<Double> xPoints = ((Polynom) p).rootPoints(a,b,eps);
+		Iterator<Double> it = xPoints.iterator();
+		while (it.hasNext()) {
+			double x = it.next();
+			points.add(x,this.f(x));	
+		}
+		return points;
 	}
 	/**
 	 * toString function to print the polynom

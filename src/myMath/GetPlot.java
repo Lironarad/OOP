@@ -23,6 +23,8 @@ package myMath;
 
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import de.erichseifert.gral.data.DataSeries;
@@ -42,7 +44,7 @@ import de.erichseifert.gral.ui.InteractivePanel;
 import de.erichseifert.gral.util.GraphicsUtils;
 import de.erichseifert.gral.graphics.Insets2D;
 
-public class AreaPlot extends ExamplePanel {
+public class GetPlot extends ExamplePanel {
 	/** Version id for serialization. */
 	private static final long serialVersionUID = 3287044991898775949L;
 
@@ -50,44 +52,31 @@ public class AreaPlot extends ExamplePanel {
 	private static final Random random = new Random();
 
 	@SuppressWarnings("unchecked")
-	public AreaPlot(Polynom p) {
-		//data of p = f(x) = 0.2x^4-1.5x^3+3.0x^2-x-5
-		DataTable data1 = new DataTable(Double.class, Double.class);
-		//data of area above function and under the x-axis
-		DataTable data2 = new DataTable(Double.class, Double.class);
+	public GetPlot(Polynom p, double a, double b) {
+		//data of p = f(x)
+		
+		DataTable func = new DataTable(Double.class, Double.class);
 		//data of critical points
-		DataTable data3 = new DataTable(Double.class, Double.class);
+		DataTable  points = p.criticalPoints(a, b, 0.001);
 
-		for (double x = -2.0; x <= 6; x+=0.01) {
+		for (double x = a; x <= b; x+=0.001) {
 			double y = p.f(x);
-			if(y>=0) {
-			data1.add(x,y);
-			}
+			//if(y>=0) 
+				func.add(x,y);
 		}
-		
-		double x0 = p.root(-1, 0, 0.01);
-		double x1 = p.root(4,5, 0.01);
-		for (double x = x0; x < x1; x+=0.01) {
-			double y = p.f(x);
-			data2.add(x,y);
-		}
-		
-		data3.add(0.19389,p.f(0.19389));
-		data3.add(1.75260,p.f(1.75260));
-		data3.add(3.67851,p.f(3.67851));
 		
 		// Create data series
-		DataSeries lineSeries = new DataSeries("f(x)", data1, 0, 1);
-		DataSeries areaSeries = new DataSeries("area", data2, 0, 1);
-		DataSeries criticalPoints = new DataSeries("critical points", data3, 0, 1);
+		DataSeries lineSeries = new DataSeries("f(x)", func, 0, 1);
+
+		DataSeries criticalPoints = new DataSeries("critical points", points, 0, 1);
 
 		// Create new xy-plot
-		XYPlot plot = new XYPlot(areaSeries,lineSeries,criticalPoints);
+		XYPlot plot = new XYPlot(lineSeries,criticalPoints);
 		plot.setLegendVisible(true);
 		plot.setInsets(new Insets2D.Double(20.0, 40.0, 20.0, 20.0));
-		
-		formatFilledArea(plot, areaSeries, Color.BLUE);
-		
+
+		//formatFilledArea(plot, areaSeries, Color.BLUE);
+
 		// Display the third data series as a points
 		PointRenderer sizeablePointRenderer = new SizeablePointRenderer();
 		sizeablePointRenderer.setColor(GraphicsUtils.deriveDarker(Color.RED));
@@ -134,22 +123,10 @@ public class AreaPlot extends ExamplePanel {
 	}
 
 	public static void main(String[] args) {
-		Polynom p = new Polynom("[0.2x^4-1.5x^3+3.0x^2-x-5.0]");
-		Monom m1 = new Monom(0.2, 4);
-		Monom m2 = new Monom(-1.5, 3);
-		Monom m3 = new Monom(3, 2);
-		Monom m4 = new Monom(-1, 1);
-		Monom m5 = new Monom(-5, 0);
-		p.add(m1);
-		p.add(m2);
-		p.add(m3);
-		p.add(m4);
-		p.add(m5);
-		System.out.println(p);
-		System.out.println("area above function and under the x-axis: " +Math.abs(p.area(p.root(-1, 0, 0.001), p.root(4, 5, 0.001), 0.001)));
-		System.out.println("critical points: \n" +"(" + 0.19389 +"," + p.f(0.19389)+ ")\n" + "(" + 1.75260 +"," + p.f(1.75260)+ ")\n" + "(" + 3.67851 +"," + p.f(3.67851)+ ")\n");
-		System.out.println("roots: \n" + p.root(-1, 0, 0.01) + "\n" + p.root(4,5, 0.01));
 		
-		new AreaPlot(p).showInFrame();
+		Polynom p = new Polynom("[x^4-x^3-4x^2+4x]");
+		System.out.println(p);
+		System.out.println("area above function and under the x-axis: " +Math.abs(p.areaUnderX(-2.5, 2.5, 0.001)));
+		new GetPlot(p,-2.5,2.5).showInFrame();
 	}
 }
