@@ -3,6 +3,8 @@ package myMath;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import de.erichseifert.gral.data.DataTable;
 import myMath.Monom;
 /**
  * This class represents a Polynom with add, multiply functionality, it also should support the following:
@@ -144,7 +146,7 @@ public class Polynom implements Polynom_able{
 			if(i==0) start++;
 			if(temp.contains(power)==true)
 			{
-				
+
 				while(temp.charAt(k)!='x')
 				{
 					end++;
@@ -176,6 +178,9 @@ public class Polynom implements Polynom_able{
 								break;
 							}
 						}
+						if(temp.charAt(k-1) == '[')
+							a = 1;
+						else
 						a = Double.parseDouble(temp.substring(start, end));
 						if(temp.charAt(end+2)!=']' && temp.charAt(temp.length()-1)==']')
 						{
@@ -220,6 +225,15 @@ public class Polynom implements Polynom_able{
 								if(temp.charAt(k-1)=='+') 
 								{
 									a = 1;
+									if(temp.length() == 2) {
+										b = 1;
+										Monom e = new Monom(a,b);
+										add(e);
+										k=0;
+										start=0;
+										end=0;
+										break;
+									}
 									b = Integer.parseInt(temp.substring(end+2, temp.length()));
 									Monom e = new Monom(a,b);
 									add(e);
@@ -231,6 +245,15 @@ public class Polynom implements Polynom_able{
 								if(temp.charAt(k-1)=='-')
 								{
 									a = -1;
+									if(temp.length() == 2) {
+										b = 1;
+										Monom e = new Monom(a,b);
+										add(e);
+										k=0;
+										start=0;
+										end=0;
+										break;
+									}
 									b = Integer.parseInt(temp.substring(end+2, temp.length()));
 									Monom e = new Monom(a,b);
 									add(e);
@@ -523,6 +546,25 @@ public class Polynom implements Polynom_able{
 		return polynom.iterator();
 	}
 
+
+	public ArrayList<Double> CuttingPoints(double a, double b) {
+
+		ArrayList<Double> criticalPoints = new ArrayList<>();
+		double x0 = a;
+		double x1 = a+1;
+		double x;
+		while(x1<=b+1) {
+			if(this.f(x0) * this.f(x1)<0) {
+				x = root(x0, x1, 0.0001);
+				criticalPoints.add(x);
+			}
+			x0 += 0.5;
+			if(x0>=x1)
+				x1+=0.5;
+		}
+
+		return criticalPoints;
+	}
 	/**
 	 * toString function to print the polynom
 	 * @return String of this polynom.

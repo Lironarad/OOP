@@ -134,7 +134,7 @@ public class AreaPlot extends ExamplePanel {
 	}
 
 	public static void main(String[] args) {
-		Polynom p = new Polynom();
+		Polynom p = new Polynom("[0.2x^4-1.5x^3+3.0x^2-x-5.0]");
 		Monom m1 = new Monom(0.2, 4);
 		Monom m2 = new Monom(-1.5, 3);
 		Monom m3 = new Monom(3, 2);
