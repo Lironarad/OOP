@@ -124,9 +124,9 @@ public class GetPlot extends ExamplePanel {
 
 	public static void main(String[] args) {
 		
-		Polynom p = new Polynom("[x^4-x^3-4x^2+4x]");
+		Polynom p = new Polynom("[0.2x^4-1.5x^3+3.0x^2-x-5]");
 		System.out.println(p);
-		System.out.println("area above function and under the x-axis: " +Math.abs(p.areaUnderX(-2.5, 2.5, 0.001)));
-		new GetPlot(p,-2.5,2.5).showInFrame();
+		System.out.println("area above function and under the x-axis: " +Math.abs(p.areaUnderX(-2, 6, 0.001)));
+		new GetPlot(p,-2,6).showInFrame();
 	}
 }
