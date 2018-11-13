@@ -1,0 +1,109 @@
+																					package myMath;
+
+	
+
+import org.junit.jupiter.api.Test;
+
+class myTest
+{
+
+	
+	@Test
+	void test()
+	{
+		fail("Not yet implemented");
+	}
+	@Test
+	// test for the add function, return true if the powers are equals and the coefficient was put together  
+	public void testAddMonom()
+	{
+		  Monom a = new Monom(2,3);
+		  Monom b = new Monom(2,3);
+		  a.add(b);
+	      Monom result = a;
+	      assertTrue(result.get_coefficient() == 4 && result.get_power() == 3);
+	      assertFalse(result.get_coefficient() != 4 || result.get_power() != 3);
+	      
+	      Monom c = new Monom(4,3);
+		  Monom d = new Monom(2,3);
+		  c.add(d);
+	      Monom result1 = c;
+	      assertTrue(result1.get_coefficient() == 4 && result.get_power() == 3);
+	      assertFalse(result1.get_coefficient() != 4 || result.get_power() != 3);
+	      
+	      Monom e = new Monom(4,3);
+		  Monom f = new Monom(2,3);
+		  e.add(f);
+	      Monom result2 = e;
+	      assertTrue(result2.get_coefficient() == 4 && result.get_power() == 3);
+	      assertFalse(result2.get_coefficient() != 4 || result.get_power() != 3);
+
+	      
+	 }
+	//test if the value x that put inside the monom give the correct answer
+	@Test
+	
+	 public void testF()
+	 {
+		 double x = 4;
+		 double result,result1,result2;
+		 Monom a = new Monom(2,3);
+		 Monom b = new Monom(1.5,3);
+		 Monom c = new Monom(2,4);
+		 
+		 result=a.f(x);
+		 result1=b.f(x);
+		 result2=c.f(x);
+		 
+		 assertTrue(a.f(x)==result &&  b.f(x)==result1 && c.f(x)==result2);
+		 assertFalse(a.f(x)!=result ||  b.f(x)!=result1 || c.f(x)!=result2);
+		 
+	 }
+	
+	//check if the derivative on the monom give the correct answer
+	@Test
+	
+	public void testDerivative()
+	{
+		Monom a = new Monom(2,3);
+		Monom b = new Monom(12,3);
+		Monom c = new Monom(2,6);
+		
+		a.derivative();
+		b.derivative();
+		c.derivative();
+		
+		assertTrue(a.get_coefficient()==6 && a.get_power()==2 && b.get_coefficient()==36 && b.get_power()==2 && c.get_coefficient()==12 && c.get_power()==1);
+		assertFalse(a.get_coefficient()!=6 || a.get_power()!=2 || b.get_coefficient()!=36 || b.get_power()!=2 || c.get_coefficient()!=12 || c.get_power()!=1);
+
+	}
+	
+	@Test
+	
+	
+	public void testMultByOtherMonom()
+	{
+		Monom a = new Monom(2,3);
+		Monom b = new Monom(12,3);
+		Monom c = new Monom(2,6);
+		Monom d = new Monom(2,3);
+		
+		Monom ansA=a.multByOtherMonom(b);
+		Monom ansB=a.multByOtherMonom(c);
+		Monom ansC=a.multByOtherMonom(d);
+        
+		assertTrue(ansA.get_coefficient()==24 && ansA.get_power()==3 && ansB.get_coefficient()==4 && ansB.get_power()==9 && ansC.get_coefficient()==4 && ansC.get_power()==3);
+		assertTrue(ansA.get_coefficient()!=24 || ansA.get_power()!=3 || ansB.get_coefficient()!=4 || ansB.get_power()!=9 || ansC.get_coefficient()!=4 || ansC.get_power()!=3);		
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
