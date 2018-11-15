@@ -190,6 +190,11 @@ this function find the closest value x' in the x-axis , when f(x')=0, between tw
  <br/>
   <br/>
   
+    public double areaUnderX(double x0, double x1, double eps)
+   this function compute the area under the x-axis and above the function. 
+    <br/>
+  <br/>
+  
     public ArrayList<Double> rootPoints(double a, double b, double eps)
   use root function to solve function f(x)=0, return list of roots on x-axis.
    <br/>
