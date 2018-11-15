@@ -51,6 +51,12 @@ public class GetPlot extends ExamplePanel {
 	/** Instance to generate random data values. */
 	private static final Random random = new Random();
 
+	/**
+	 * contractor for the getPlot class that present a grapic view of functions.
+	 * @param p Polynom
+	 * @param a the start value of the interval that we view
+	 * @param b	the end value of the interval that we view
+	 */
 	@SuppressWarnings("unchecked")
 	public GetPlot(Polynom p, double a, double b) {
 		//data of p = f(x)
@@ -75,8 +81,6 @@ public class GetPlot extends ExamplePanel {
 		plot.setLegendVisible(true);
 		plot.setInsets(new Insets2D.Double(20.0, 40.0, 20.0, 20.0));
 
-		//formatFilledArea(plot, areaSeries, Color.BLUE);
-
 		// Display the third data series as a points
 		PointRenderer sizeablePointRenderer = new SizeablePointRenderer();
 		sizeablePointRenderer.setColor(GraphicsUtils.deriveDarker(Color.RED));
@@ -87,20 +91,12 @@ public class GetPlot extends ExamplePanel {
 		add(new InteractivePanel(plot));
 	}
 
-	private static void formatFilledArea(XYPlot plot, DataSource data, Color color) {
-		PointRenderer point = new DefaultPointRenderer2D();
-		point.setColor(color);
-		plot.setPointRenderers(data, point);
-		LineRenderer line = new DefaultLineRenderer2D();
-		line.setColor(color);
-		line.setGap(3.0);
-		line.setGapRounded(true);
-		plot.setLineRenderers(data, line);
-		AreaRenderer area = new DefaultAreaRenderer2D();
-		area.setColor(GraphicsUtils.deriveWithAlpha(color, 64));
-		plot.setAreaRenderers(data, area);
-	}
-
+	/**
+	 * function to show the data of Polynom as a line over the plot
+	 * @param plot the plot that will represenr the Polynom
+	 * @param data the data of the Polynom
+	 * @param color color of the line
+	 */
 	private static void formatLineArea(XYPlot plot, DataSource data, Color color) {
 		PointRenderer point = new DefaultPointRenderer2D();
 		point.setColor(color);
@@ -113,14 +109,21 @@ public class GetPlot extends ExamplePanel {
 	}
 
 	@Override
+	/**
+	 * the title of the view window
+	 */
 	public String getTitle() {
 		return "Area plot";
 	}
 
 	@Override
+	/**
+	 * Description of the plot.
+	 */
 	public String getDescription() {
-		return "Area plot of three series with different styling";
+		return "2D graph plot for polynoms";
 	}
+
 
 	public static void main(String[] args) {
 		
@@ -128,5 +131,13 @@ public class GetPlot extends ExamplePanel {
 		System.out.println(p);
 		System.out.println("area above function and under the x-axis: " +Math.abs(p.areaUnderX(-2, 6, 0.001)));
 		new GetPlot(p,-2,6).showInFrame();
+		Monom a = new Monom(-1,2);
+		Monom b = new Monom(3,1);
+		Monom c = new Monom(8,0);
+		Polynom p10 = new Polynom();
+		p10.add(a);
+		p10.add(b);
+		p10.add(c);
+		double root = p10.root(-5, 2, 0.01);
 	}
 }

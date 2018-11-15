@@ -536,6 +536,14 @@ public class Polynom implements Polynom_able{
 		}
 		return area;
 	}
+	
+	/**
+	 * this function compute the area under the x-axis and above the function. 
+	 * @param x0 first value of the interval
+	 * @param x1 second value of the interval
+	 * @param eps the steps value
+	 * @return area. 
+	 */
 	public double areaUnderX(double x0, double x1, double eps) {
 		double area = 0;
 		for (double i = x0; i < x1; i+=eps) {
@@ -554,7 +562,13 @@ public class Polynom implements Polynom_able{
 		return polynom.iterator();
 	}
 
-
+	/**
+	 * this function use root function to solve function f(x)=0, 
+	 * @param a first value of the interval
+	 * @param b second value of the interval
+	 * @param eps the steps value
+	 * @return list of roots on x-axis. 
+	 */
 	public ArrayList<Double> rootPoints(double a, double b, double eps) {
 
 		ArrayList<Double> roots = new ArrayList<>();
@@ -571,6 +585,14 @@ public class Polynom implements Polynom_able{
 		}
 		return roots;
 	}
+	
+	/**
+	 * use derative and rootPoints functions to find critical points. 
+	 * @param a first value of the interval
+	 * @param b second value of the interval
+	 * @param eps the steps value
+	 * @return list of points (x,y).
+	 */
 	public DataTable criticalPoints(double a, double b, double eps){
 
 		DataTable points = new DataTable(Double.class, Double.class);
