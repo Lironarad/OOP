@@ -189,11 +189,28 @@ this function find the closest value x' in the x-axis , when f(x')=0, between tw
  this function compute the area above the x-axsis and under this polynom between two point [x0,x1].
  <br/>
   <br/>
+  
+    public ArrayList<Double> rootPoints(double a, double b, double eps)
+  use root function to solve function f(x)=0, return list of roots on x-axis.
+   <br/>
+  <br/>
+  
+    public DataTable criticalPoints(double a, double b, double eps)
+  use derative and rootPoints functions to find critical points. return list of points (x,y).
+   <br/>
+  <br/>
+  
     public Iterator<Monom> iteretor() 
  iterator over the list of monioms in the polynom.
    <br/>
    <br/>
- With this function we finish to explain the code.
+   
+     getPlot class:
+  class that get Polynom, and [a,b] interval and show it on a graph.   <br/>
+  we use gral open source libraris on this class.
+     <br/>
+   <br/>
+ With this class we finish to explain the code.
  
  
   
